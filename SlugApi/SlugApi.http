@@ -1,6 +1,42 @@
-@SlugApi_HostAddress = http://localhost:5222
 
-GET {{SlugApi_HostAddress}}/weatherforecast/
-Accept: application/json
+
+POST http://localhost:5222/api/v1/slugs
+Content-Type: application/json
+{
+    "text" : "Hello World"
+}
 
 ###
+POST http://localhost:5222/api/v1/slugs
+Content-Type: application/json
+{
+    "text" : "Hello World",
+    "separator" : "_"
+}
+
+###
+POST http://localhost:5222/api/v1/slugs
+Content-Type: application/json
+{
+    "text" : "",
+    "separator" : "_"
+}
+
+###
+POST http://localhost:5222/api/v1/slugs
+Content-Type: application/json
+{
+    "text" : "  ",
+    "separator" : "_"
+}
+
+###
+POST http://localhost:5222/api/v1/slugs
+Content-Type: application/json
+{
+    "separator" : "_"
+}
+
+
+###
+GET http://localhost:5222/api/v1/slugs/error

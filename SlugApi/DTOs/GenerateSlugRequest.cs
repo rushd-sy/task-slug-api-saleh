@@ -2,7 +2,7 @@
 {
     public record GenerateSlugRequest
     (
-        string text ,
-        char? separator
+        string Text ,
+        char? Separator
         );
 }
