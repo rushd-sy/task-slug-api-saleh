@@ -18,7 +18,7 @@ namespace SlugApi.Middleware
              }
             catch (Exception ex)
             {
-                _logger.LogError(ex, ex.Message);
+                _logger.LogError(ex, "Unhandled exception while processing request");
 
                 var (status, title, detail) = ex switch
                 {

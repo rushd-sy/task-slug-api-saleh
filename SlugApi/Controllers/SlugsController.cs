@@ -24,13 +24,5 @@ namespace SlugApi.Controllers
             return Ok(result);
         }
 
-        // test
-        [HttpGet]
-        [Route("error")]
-        public IActionResult Error()
-        {
-            throw new Exception("test error");
-        }
-
     }
 }
