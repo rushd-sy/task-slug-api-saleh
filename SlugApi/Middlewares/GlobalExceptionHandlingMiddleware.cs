@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Text.Json;
 
@@ -15,13 +16,19 @@ namespace SlugApi.Middleware
             try
             {
                 await next(context);
-             }
+            }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unhandled exception while processing request");
 
                 var (status, title, detail) = ex switch
                 {
+                    ValidationException ve =>
+                    (
+                        HttpStatusCode.BadRequest,
+                        "Bad Request Validation error",
+                        ve.Message
+                    ),
                     ArgumentException => (
                         HttpStatusCode.BadRequest,
                         "Bad Request",

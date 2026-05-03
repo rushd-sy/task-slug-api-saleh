@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SlugApi.DTOs;
 using SlugApi.Interfaces;
-using SlugApi.Services;
-using SlugGenerator;
 namespace SlugApi.Controllers
 {
-    
+
     [ApiController]
     [Route("api/v1/[controller]")]
     public class SlugsController : ControllerBase
