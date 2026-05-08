@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Text.Json;
 
@@ -23,12 +22,6 @@ namespace SlugApi.Middleware
 
                 var (status, title, detail) = ex switch
                 {
-                    ValidationException ve =>
-                    (
-                        HttpStatusCode.BadRequest,
-                        "Bad Request Validation error",
-                        ve.Message
-                    ),
                     ArgumentException => (
                         HttpStatusCode.BadRequest,
                         "Bad Request",

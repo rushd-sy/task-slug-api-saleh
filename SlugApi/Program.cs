@@ -1,5 +1,4 @@
 using FluentValidation;
-using SlugApi.DTOs;
 using SlugApi.Filters;
 using SlugApi.Interfaces;
 using SlugApi.Middleware;
@@ -11,22 +10,25 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(options =>
 {
-    options.Filters.Add(typeof(ValidationFilter<GenerateSlugRequest>));
+    options.Filters.Add<ValidationFilter>();
 });
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddScoped<IGenerateSlugServices, GenerateSlugService>();
 builder.Services.AddScoped<GlobalExceptionHandlingMiddleware>();
-builder.Services.AddScoped(typeof(ValidationFilter<>));
+builder.Services.AddScoped<ValidationFilter>();
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly, includeInternalTypes: true);
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();

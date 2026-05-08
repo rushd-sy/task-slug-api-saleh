@@ -7,13 +7,13 @@ namespace SlugApi.Validators
     {
         public GenerateSlugRequestDtoValidator()
         {
-            RuleFor(x => x.Text).Must(text => !string.IsNullOrWhiteSpace(text))
+            RuleFor(x => x.Text).NotNull().NotEmpty()
                 .WithMessage("Text is required.")
                 .MaximumLength(500)
-                .WithMessage("Text must be less than 500 characters");
+                .WithMessage("Text must be 500 or fewer characters");
 
             RuleFor(x => x.Separator).Must(c => !c.HasValue || c == '-' || c == '_')
-                .WithMessage("separator must be - or _");
+                .WithMessage("Separator must be - or _");
 
         }
     }

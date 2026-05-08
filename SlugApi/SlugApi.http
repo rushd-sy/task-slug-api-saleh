@@ -1,5 +1,3 @@
-
-
 POST http://localhost:5222/api/v1/slugs
 Content-Type: application/json
 {
@@ -35,6 +33,14 @@ POST http://localhost:5222/api/v1/slugs
 Content-Type: application/json
 {
     "text" : "Hello World",
+    "separator" : "@"
+}
+
+###
+POST http://localhost:5222/api/v1/slugs
+Content-Type: application/json
+{
+    "text" : "  ",
     "separator" : "@"
 }
 
