@@ -25,14 +25,14 @@ namespace SlugApi.Filters
                 var result = validator.Validate(new ValidationContext<object>(argument));
                 if (!result.IsValid)
                 {
-                    var problem = new ProblemDetails
-                    {
-                        Status = StatusCodes.Status400BadRequest,
-                        Title = "Bad Request Validation error",
-                        Detail = string.Join(", ", result.Errors.Select(e => e.ErrorMessage))
-                    };
+                    var errors = result.Errors
+                        .GroupBy(e => e.PropertyName)
+                        .ToDictionary(
+                        x => x.Key,
+                        x => x.Select(e => e.ErrorMessage).ToArray()
+                        );
 
-                    context.Result = new BadRequestObjectResult(problem);
+                    context.Result = new BadRequestObjectResult(new ValidationProblemDetails(errors));
                     return;
 
                 }
