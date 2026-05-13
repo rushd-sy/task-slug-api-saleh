@@ -15,7 +15,7 @@ namespace SlugApi.Middleware
             try
             {
                 await next(context);
-             }
+            }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Unhandled exception while processing request");
