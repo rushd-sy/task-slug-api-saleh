@@ -36,13 +36,8 @@ namespace SlugApi.Filters
                     return;
 
                 }
-
             }
-
-
         }
-
         public void OnActionExecuted(ActionExecutedContext context) { }
-
     }
 }
