@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
-using SlugApi.DTOs;
 using System.Net;
 using System.Net.Http.Json;
 using System.Text.Json;
+using Microsoft.AspNetCore.Mvc.Testing;
+using SlugApi.DTOs;
 
 namespace SlugApi.Test
 {
@@ -16,7 +16,7 @@ namespace SlugApi.Test
         }
 
         [Fact]
-        public async Task Post_Generate_ValideRequest_200Ok()
+        public async Task Post_Generate_ValidRequest_200Ok()
         {
             var request = new GenerateSlugRequest("Hello World", '_');
             var response = await _client.PostAsJsonAsync("api/v1/Slugs", request);
@@ -28,7 +28,7 @@ namespace SlugApi.Test
 
         }
         [Fact]
-        public async Task Post_Generate_ValideRequestWithOutSeparator_200Ok()
+        public async Task Post_Generate_ValidRequestWithOutSeparator_200Ok()
         {
             var request = new { Text = "Hello World" };
             var response = await _client.PostAsJsonAsync("api/v1/Slugs", request);
@@ -56,7 +56,7 @@ namespace SlugApi.Test
         public async Task Post_Generate_InvalidSeparator_Returns400BadRequest()
         {
             var request = new { Text = "Hello World", Separator = '@' };
-            var response = await _client.PostAsJsonAsync("/api/v1/slugs", request);
+            var response = await _client.PostAsJsonAsync("api/v1/slugs", request);
             var responseAsString = await response.Content.ReadAsStringAsync();
             var responseAsJson = JsonDocument.Parse(responseAsString).RootElement;
 
