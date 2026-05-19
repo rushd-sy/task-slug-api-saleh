@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using SlugApi.DTOs;
 using SlugApi.Interfaces;
 namespace SlugApi.Controllers
@@ -18,7 +18,8 @@ namespace SlugApi.Controllers
         [HttpPost]
         public IActionResult Generate(GenerateSlugRequest request)
         {
-            var result = _slugService.Generate(request);
+            var (result, isHit) = _slugService.Generate(request);
+            Response.Headers["X-Cache"] = isHit ? "HIT" : "MISS";
             return Ok(result);
         }
 
