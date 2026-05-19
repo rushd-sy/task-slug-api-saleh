@@ -23,6 +23,7 @@ builder.Services.AddScoped<ValidationFilter>();
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly, includeInternalTypes: true);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddMemoryCache();
 var rateLimitSetting = builder.Configuration.GetSection("RateLimiting");
 builder.Services.AddRateLimiter(RateLimiterOptions =>
 {

@@ -1,10 +1,10 @@
-﻿using SlugApi.DTOs;
+using SlugApi.DTOs;
 
 namespace SlugApi.Interfaces
 {
     public interface IGenerateSlugServices
     {
-        GenerateSlugResponse Generate(GenerateSlugRequest request);
+        (GenerateSlugResponse Response, bool IsHit) Generate(GenerateSlugRequest request);
 
     }
 }
