@@ -9,10 +9,12 @@ namespace SlugApi.Services
     public class GenerateSlugService : IGenerateSlugServices
     {
         private readonly IMemoryCache _cache;
+        private readonly ISlugRepository _slugRepository;
         private const string CacheKeyPrefix = "slug-generator";
-        public GenerateSlugService(IMemoryCache cache)
+        public GenerateSlugService(IMemoryCache cache, ISlugRepository slugRepository)
         {
             _cache = cache;
+            _slugRepository = slugRepository;
         }
 
         public GenerateSlugResult Generate(GenerateSlugRequest request)
@@ -51,5 +53,16 @@ namespace SlugApi.Services
 
             return $"{CacheKeyPrefix}:{hash}";
         }
+
+        public async Task<IEnumerable<GenerateSlugResponse>> GetHistoryAsync()
+        {
+            var slugsHistory = await _slugRepository.GetAllAsync();
+            return slugsHistory.Select(r => new GenerateSlugResponse(
+                r.OriginalText,
+                r.Slug,
+                r.GeneratedAt
+            ));
+        }
+
     }
 }
