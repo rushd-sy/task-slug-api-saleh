@@ -1,6 +1,5 @@
-using System.Threading.RateLimiting;
 using FluentValidation;
-using Microsoft.AspNetCore.RateLimiting;
+using SlugApi.Extensions;
 using SlugApi.Filters;
 using SlugApi.Interfaces;
 using SlugApi.Middleware;
@@ -23,21 +22,8 @@ builder.Services.AddScoped<ValidationFilter>();
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly, includeInternalTypes: true);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-var rateLimitSetting = builder.Configuration.GetSection("RateLimiting");
-builder.Services.AddRateLimiter(RateLimiterOptions =>
-{
-    RateLimiterOptions.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
-    RateLimiterOptions.AddPolicy("fixed-Ip", httpContext =>
-    RateLimitPartition.GetFixedWindowLimiter(
-        partitionKey: httpContext.Connection.RemoteIpAddress?.ToString(),
-        factory: _ => new FixedWindowRateLimiterOptions
-        {
-            PermitLimit = rateLimitSetting.GetValue<int>("PermitLimit"),
-            Window = TimeSpan.FromSeconds(rateLimitSetting.GetValue<int>("WindowSeconds")),
-            QueueLimit = rateLimitSetting.GetValue<int>("QueueLimit")
-        }));
-});
-
+builder.Services.AddProblemDetails();
+builder.Services.AddRateLimiterPolicy(builder.Configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
