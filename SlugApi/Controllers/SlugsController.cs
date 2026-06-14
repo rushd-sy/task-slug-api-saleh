@@ -18,8 +18,8 @@ namespace SlugApi.Controllers
         [HttpPost]
         public IActionResult Generate(GenerateSlugRequest request)
         {
-            var (result, isHit) = _slugService.Generate(request);
-            Response.Headers["X-Cache"] = isHit ? "HIT" : "MISS";
+            GenerateSlugResult result = _slugService.Generate(request);
+            Response.Headers["X-Cache"] = result.IsHit ? "HIT" : "MISS";
             return Ok(result);
         }
 
