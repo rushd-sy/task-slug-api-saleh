@@ -9,7 +9,6 @@ namespace SlugApi.Test
     public class SlugsControllerTests : IClassFixture<WebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;
-
         public SlugsControllerTests(WebApplicationFactory<Program> factory)
         {
             _client = factory.CreateClient();
@@ -20,23 +19,22 @@ namespace SlugApi.Test
         {
             var request = new GenerateSlugRequest("Hello World", '_');
             var response = await _client.PostAsJsonAsync("api/v1/Slugs", request);
-            var responseAsObject = await response.Content.ReadFromJsonAsync<GenerateSlugResponse>();
+            var responseAsObject = await response.Content.ReadFromJsonAsync<GenerateSlugResult>();
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.NotNull(responseAsObject);
-            Assert.Equal("hello_world", responseAsObject.Slug);
-
+            Assert.Equal("hello_world", responseAsObject.Response.Slug);
         }
         [Fact]
         public async Task Post_Generate_ValidRequestWithOutSeparator_200Ok()
         {
             var request = new { Text = "Hello World" };
             var response = await _client.PostAsJsonAsync("api/v1/Slugs", request);
-            var responseAsObject = await response.Content.ReadFromJsonAsync<GenerateSlugResponse>();
+            var responseAsObject = await response.Content.ReadFromJsonAsync<GenerateSlugResult>();
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.NotNull(responseAsObject);
-            Assert.Equal("hello-world", responseAsObject.Slug);
+            Assert.Equal("hello-world", responseAsObject.Response.Slug);
 
         }
         [Fact]

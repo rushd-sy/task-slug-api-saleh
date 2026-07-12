@@ -24,6 +24,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddProblemDetails();
 builder.Services.AddRateLimiterPolicy(builder.Configuration);
+builder.Services.AddMemoryCache(options => options.SizeLimit = 1024);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
