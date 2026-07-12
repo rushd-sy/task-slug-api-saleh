@@ -1,4 +1,5 @@
 using FluentValidation;
+using SlugApi.Extensions;
 using SlugApi.Filters;
 using SlugApi.Interfaces;
 using SlugApi.Middleware;
@@ -21,7 +22,8 @@ builder.Services.AddScoped<ValidationFilter>();
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly, includeInternalTypes: true);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddProblemDetails();
+builder.Services.AddRateLimiterPolicy(builder.Configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -33,7 +35,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseMiddleware<GlobalExceptionHandlingMiddleware>();
+app.UseRateLimiter();
 app.UseAuthorization();
-app.MapControllers();
+app.MapControllers().RequireRateLimiting("fixed-Ip");
 
 app.Run();
