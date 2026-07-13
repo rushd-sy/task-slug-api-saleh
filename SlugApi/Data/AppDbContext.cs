@@ -11,7 +11,7 @@ namespace SlugApi.Date
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
         }
-        public DbSet<SlugRecord> slugRecords => Set<SlugRecord>();
+        public DbSet<SlugRecord> SlugRecords => Set<SlugRecord>();
 
     }
 }

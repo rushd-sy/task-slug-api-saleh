@@ -1,6 +1,4 @@
 using FluentValidation;
-using Microsoft.EntityFrameworkCore;
-using SlugApi.Date;
 using SlugApi.Extensions;
 using SlugApi.Filters;
 using SlugApi.Interfaces;
@@ -29,11 +27,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddProblemDetails();
 builder.Services.AddRateLimiterPolicy(builder.Configuration);
 builder.Services.AddMemoryCache(options => options.SizeLimit = 1024);
-builder.Services.AddDbContext<AppDbContext>(options =>
- options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
- );
-
-
+builder.Services.AddDatabaseService(builder.Configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

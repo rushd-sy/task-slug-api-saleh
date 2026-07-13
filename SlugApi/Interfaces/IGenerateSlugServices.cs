@@ -4,7 +4,7 @@ namespace SlugApi.Interfaces
 {
     public interface IGenerateSlugServices
     {
-        GenerateSlugResult Generate(GenerateSlugRequest request);
-        Task<IEnumerable<GenerateSlugResponse>> GetHistoryAsync();
+        Task<GenerateSlugResult> GenerateAsync(GenerateSlugRequest request);
+        Task<PaginatedResponse<SlugHistoryResponse>> GetHistoryAsync(int Page, int PageSize);
     }
 }

@@ -18,17 +18,19 @@ namespace SlugApi.Controllers
         [HttpPost]
         public async Task<ActionResult<GenerateSlugResponse>> Generate(GenerateSlugRequest request)
         {
-            GenerateSlugResult result = _slugService.Generate(request);
+            var result = await _slugService.GenerateAsync(request);
             Response.Headers["X-Cache"] = result.IsHit ? "HIT" : "MISS";
 
             return Ok(result);
         }
 
         [HttpGet("history")]
-        public async Task<ActionResult<IEnumerable<GenerateSlugResponse>>> GetSlugsHistory()
+        public async Task<IActionResult> GetSlugsHistory(
+            [FromQuery] int page = 1,
+            [FromQuery] int pageSize = 10)
         {
-            var slugRecords = await _slugService.GetHistoryAsync();
-            return Ok(slugRecords);
+            var result = await _slugService.GetHistoryAsync(page, pageSize);
+            return Ok(result);
         }
 
     }

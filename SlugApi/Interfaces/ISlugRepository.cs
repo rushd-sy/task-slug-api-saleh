@@ -1,3 +1,4 @@
+using SlugApi.DTOs;
 using SlugApi.Entities;
 
 namespace SlugApi.Interfaces
@@ -5,7 +6,7 @@ namespace SlugApi.Interfaces
     public interface ISlugRepository
     {
         Task SaveAsync(SlugRecord record);
-        Task<IEnumerable<SlugRecord>> GetAllAsync();
+        Task<PagedResult<SlugRecord>> GetAllAsync(int Page, int PageSize);
 
     }
 }

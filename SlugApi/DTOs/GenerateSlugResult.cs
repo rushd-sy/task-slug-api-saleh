@@ -2,7 +2,9 @@ namespace SlugApi.DTOs
 {
     public record GenerateSlugResult
     (
-        GenerateSlugResponse Response,
-        bool IsHit
-    );
+    string OriginalText,
+    string Slug,
+    DateTimeOffset GeneratedAt,
+    bool IsHit
+);
 }
