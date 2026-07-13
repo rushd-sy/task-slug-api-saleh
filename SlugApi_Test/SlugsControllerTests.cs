@@ -23,7 +23,7 @@ namespace SlugApi.Test
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.NotNull(responseAsObject);
-            Assert.Equal("hello_world", responseAsObject.Response.Slug);
+            Assert.Equal("hello_world", responseAsObject.Slug);
         }
         [Fact]
         public async Task Post_Generate_ValidRequestWithOutSeparator_200Ok()
@@ -34,7 +34,7 @@ namespace SlugApi.Test
 
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.NotNull(responseAsObject);
-            Assert.Equal("hello-world", responseAsObject.Response.Slug);
+            Assert.Equal("hello-world", responseAsObject.Slug);
 
         }
         [Fact]

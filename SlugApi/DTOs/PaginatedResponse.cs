@@ -1,0 +1,11 @@
+namespace SlugApi.DTOs
+{
+    public record PaginatedResponse<T>
+    (
+        IEnumerable<T> Items,
+        int Page,
+        int PageSize,
+        int TotalCount,
+        int TotelPages
+        );
+}

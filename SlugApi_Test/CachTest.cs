@@ -30,7 +30,7 @@ namespace SlugApi.Test
             Assert.Equal("MISS", firstResponse.Headers.GetValues("X-Cache").Single());
             Assert.Equal("HIT", secondResponse.Headers.GetValues("X-Cache").Single());
 
-            Assert.Equal(firstBody!.Response.Slug, secondBody!.Response.Slug);
+            Assert.Equal(firstBody!.Slug, secondBody!.Slug);
         }
 
 

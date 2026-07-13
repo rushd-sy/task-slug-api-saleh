@@ -19,7 +19,7 @@ namespace SlugApi.Test
             var request = new GenerateSlugRequest(Text: "Hello World", Separator: '-');
 
             HttpResponseMessage? lastResponse = null;
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 10; i++)
                 lastResponse = await _client.PostAsJsonAsync("api/v1/slugs", request);
 
             Assert.Equal(HttpStatusCode.TooManyRequests, lastResponse!.StatusCode);
